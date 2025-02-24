@@ -169,12 +169,10 @@ public class MovieCollection
 
         // prevent case sensitivity
         searchTerm = searchTerm.toLowerCase();
-
-        ArrayList<String> myCollection = new ArrayList<>();
         ArrayList<Movie> results = new ArrayList<Movie>();
 
-        for (String m : myCollection) {
-            return;
+        if (getMovies().contains(searchTerm)) {
+            results.add(movies.get(0));
         }
         System.out.println("Which cast member would you like to learn more about?");
         System.out.print("Enter number: ");
