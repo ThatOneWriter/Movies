@@ -2,6 +2,7 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Scanner;
 
 public class MovieCollection
@@ -164,23 +165,65 @@ public class MovieCollection
 
     private void searchCast()
     {
-        System.out.print("Enter a cast member: ");
+        System.out.print("Enter a cast members name: ");
         String searchTerm = scanner.nextLine();
 
         // prevent case sensitivity
         searchTerm = searchTerm.toLowerCase();
         ArrayList<Movie> results = new ArrayList<Movie>();
 
-        if (getMovies().contains(searchTerm)) {
-            results.add(movies.get(0));
+
+        // search through ALL movies in collection
+        for (int i = 0; i < movies.size(); i++)
+        {
+
+            String actors = movies.get(i).getCast();
+            actors = actors.toLowerCase();
+
+
+            if (actors.indexOf(searchTerm) != -1)
+            {
+                //add the Movie object to the results list
+                results.add(movies.get(i));
+            }
         }
+
+        // sort the results by title
+        sortResults(results);
+
+        // now, display them all to the user
+
+        for (int i = 0; i < results.size(); i++)
+        {
+            String actors = results.get(i).getCast();
+            String[] actorList = actors.split("\\|");
+            Arrays.sort(actorList);
+                    ;
+            // this will print index 0 as choice 1 in the results list; better for user!
+            int choiceNum = i + 1;
+
+            for (String a : actorList) {
+                System.out.println("" + choiceNum + ". " + a);
+
+            }
+
+        }
+
         System.out.println("Which cast member would you like to learn more about?");
         System.out.print("Enter number: ");
 
         int choice = scanner.nextInt();
         scanner.nextLine();
 
-        Movie selectedMovie = results.get(choice - 1);
+
+
+        System.out.println("Which movie of theirs would you like to learn more about?");
+        System.out.print("Enter number: ");
+
+        int differentMovies = scanner.nextInt();
+        scanner.nextLine();
+
+        Movie selectedMovie = results.get(differentMovies - 1);
 
         displayMovieInfo(selectedMovie);
 
